@@ -4,6 +4,9 @@ from constants import *
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+
+    dt = 0
+    clock = pygame.time.Clock()
     
     while True:
         # Check if the user exit the game
@@ -13,6 +16,10 @@ def main():
         
         screen.fill((0, 0, 0))
         pygame.display.flip()
+
+        # Pause the game loop until 1/60th of a sec passed
+        # Return the delta time 
+        dt = clock.tick(60) / 1000
 
     # print("Starting asteroids!")
     # print(f"Screen width: {SCREEN_WIDTH}")
