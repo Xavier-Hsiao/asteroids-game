@@ -1,4 +1,6 @@
 import pygame
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 from constants import *
 from player import Player
 
@@ -12,10 +14,14 @@ def main():
     # create groups
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
     
-    # add all instance of Player to groups
+    # add all relevant instance to its groups
     Player.containers = (updatable, drawable)
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable)
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    asteroid_field = AsteroidField()
 
     while True:
         # Check if the user exit the game
@@ -34,12 +40,6 @@ def main():
         # Pause the game loop until 1/60th of a sec passed
         # Return the delta time 
         dt = clock.tick(60) / 1000
-
-    # print("Starting asteroids!")
-    # print(f"Screen width: {SCREEN_WIDTH}")
-    # print(f"Screen height: {SCREEN_HEIGHT}")
-
-
 
 # Ensure that main.py is called directly
 if __name__ == "__main__":
