@@ -5,20 +5,28 @@ from player import Player
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     dt = 0
     clock = pygame.time.Clock()
+
+    # create groups
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
     
+    # add all instance of Player to groups
+    Player.containers = (updatable, drawable)
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+
     while True:
         # Check if the user exit the game
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
         
-        player.update(dt)
+        updatable.update(dt)
         screen.fill((0, 0, 0))
-        player.draw(screen)
+        for item in drawable:
+            item.draw(screen)
         
         # Update the full display Surface to the screen
         pygame.display.flip()
