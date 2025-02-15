@@ -35,14 +35,21 @@ def main():
         
         updatable.update(dt)
         screen.fill((0, 0, 0))
-        for item in drawable:
-            item.draw(screen)
         
-        # Detect collision
+        # Detect collision between player and asteroids
         for ast in asteroids:
             if ast.collides_with(player):
                 print("Game over!")
                 sys.exit()
+
+            # Detect collision between asteroids and bullets
+            for bullet in shots:
+                if bullet.collides_with(ast):
+                    ast.split()
+                    bullet.kill()
+        
+        for item in drawable:
+            item.draw(screen)
         
         # Update the full display Surface to the screen
         pygame.display.flip()
