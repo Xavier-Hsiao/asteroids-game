@@ -1,3 +1,4 @@
+import sys
 import pygame
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
@@ -33,6 +34,12 @@ def main():
         screen.fill((0, 0, 0))
         for item in drawable:
             item.draw(screen)
+        
+        # Detect collision
+        for ast in asteroids:
+            if ast.collides_with(player):
+                print("Game over!")
+                sys.exit()
         
         # Update the full display Surface to the screen
         pygame.display.flip()
